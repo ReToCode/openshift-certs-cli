@@ -18,4 +18,4 @@ deploy:
   file: cert-cli.tar.gz
   skip_cleanup: true
   on:
-    repo: oscp/certs-cli
+    tags: true
