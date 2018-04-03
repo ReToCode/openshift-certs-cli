@@ -22,6 +22,7 @@ import (
 	"encoding/json"
 	"github.com/spf13/cobra"
 	"github.com/op/go-logging"
+	"time"
 )
 
 var jsonFile string
@@ -86,6 +87,7 @@ func initLogging() {
 
 func printTypeExpiry(entry []*CertEntry, server string) {
 	for _, el := range entry {
+
 		if el.DaysRemaining <= expiryDays {
 			log.Infof("%d days left until %s for %s @ %s: %s", el.DaysRemaining, el.Expiry, el.Path, server, el.CertCn)
 		} else {
@@ -110,7 +112,20 @@ func printExpiredCertificates(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
+	layout := "2006-01-02 15:04:05.000000"
+
 	for k, v := range certExpiryReport.Data {
+		checked, err := time.Parse(layout, v.Meta.CheckedAtTime)
+		if err != nil {
+			log.Warningf("Can't parse date (%s).", err.Error())
+		} else {
+			log.Debugf("%s checked @ %s.", k, checked)
+			daysSinceCheck := time.Now().Sub(checked).Hours()/24
+			if daysSinceCheck > 1 {
+				log.Errorf("JSON file was generated @ %s (%.1f days ago).", checked, daysSinceCheck)
+			}
+		}
+
 		printTypeExpiry(v.Etcd, k)
 		printTypeExpiry(v.Kubeconfigs, k)
 		printTypeExpiry(v.OcpCerts, k)
