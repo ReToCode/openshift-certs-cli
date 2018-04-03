@@ -1,0 +1,17 @@
+language: go
+go:
+- 1.8.x
+install:
+- go get github.com/op/go-logging
+- go get github.com/spf13/cobra
+script:
+- gox -osarch="linux/amd64" -output "./dist/{{.Dir}}" github.com/oscp/certs-cli
+- tar -zcvf ose-mon-cli.tar.gz dist
+deploy:
+  provider: releases
+  api_key:
+    secure: YtcS9WTNX+NyBlULTTMi5kcknJWUZGDDhuA0Tf8NlwYD4m96Un90N3WR8DMRoZkijJnZmqKzimAoBWknGHKZpfQ2wFzCBz6tJfLAYyeAM0durWP54qN7Zt+mX2oKSIWYgB6bYFyJmIO6Obz0NmH7UTs6gRIIjharn1CNA3oZRA0WN0XT+BjjXKJdsGR5q+YVHvuvc4J89Kxf75DIKB0komxxYOZ1jGqnFM4BA1ReDcuI5DmtvZnU2YdoySeZ6ztAqnm9K2/tLDWUcY9DMMwtV+MoJQlY3pYTb0jiFVwDjAenYeW+ANXj1ybW5lBD1m1Rd4HltjknLMzacqA8TezihHOrLWE+b0WItQsCjeTS+LDNO11TxUgwYazhz3mQHiS7BesCOLl3L7/J+kHdPl05ZFvPAQ6jn6mSjuIEshx1nPagOCSYsPx59rf39KFy8qBdxUMMK7N6IssORO8P3cYLwdL+4b9Sj7tPAntkRWtsgGQ2CsdNdspFTRgkXyFOwySN7O/zxfIcL0Kbxqvye16cxSYfZ3HQORe7UgGC9DdNnJNQmZ7ax13uvWkGTn1a6h5TpHobKZajjptGtv+q5J2qtSlNEtsf7dyMe+OKPw9c5a5sR10MUWStBckUfTXwyH76ujPjWIY2pKMcNFDjVoBDv4NsCZLVaRrj2y/iBmPmP7A=
+  file: cert-cli.tar.gz
+  skip_cleanup: true
+  on:
+    repo: oscp/certs-cli

@@ -1,4 +1,4 @@
-// Copyright © 2018 Maciej SBB Cloud Stack Team
+// Copyright © 2018 SBB Cloud Stack Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"github.com/spf13/cobra"
-	"github.com/op/go-logging"
 	"io/ioutil"
 	"runtime"
 	"encoding/json"
+	"github.com/spf13/cobra"
+	"github.com/op/go-logging"
 )
 
 var jsonFile string
