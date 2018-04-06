@@ -61,22 +61,6 @@ func initLogging() {
 	stdOutBackend := logging.NewLogBackend(os.Stdout, "", 0)
 	logging.SetBackend(logging.NewBackendFormatter(stdOutBackend, format))
 
-	if runtime.GOOS != "windows" {
-		sysLogBackend, err := logging.NewSyslogBackend("openshift-monitoring-cli")
-
-		if err != nil {
-			log.Warning("Wasn't able to initialize syslog.", err)
-		} else {
-			if debug {
-				sysLogFormatter := logging.NewBackendFormatter(sysLogBackend, format)
-				stdOutFormatter := logging.NewBackendFormatter(stdOutBackend, format)
-				logging.SetBackend(logging.MultiLogger(sysLogFormatter, stdOutFormatter))
-			} else {
-				logging.SetBackend(logging.NewBackendFormatter(sysLogBackend, format))
-			}
-		}
-	}
-
 	if debug {
 		logging.SetLevel(logging.DEBUG, "certs-cli")
 	} else {
