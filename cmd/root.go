@@ -55,7 +55,7 @@ func init() {
 
 func initLogging() {
 	var format = logging.MustStringFormatter(
-		`%{color}%{time:15:04:05.000} %{shortfunc} - %{level:.4s} %{id:03x}%{color:reset} %{message}`,
+		`%{message}`,
 	)
 	stdOutBackend := logging.NewLogBackend(os.Stdout, "", 0)
 	logging.SetBackend(logging.NewBackendFormatter(stdOutBackend, format))
