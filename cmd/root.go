@@ -18,7 +18,6 @@ import (
 	"fmt"
 	"os"
 	"io/ioutil"
-	"runtime"
 	"encoding/json"
 	"github.com/spf13/cobra"
 	"github.com/op/go-logging"
