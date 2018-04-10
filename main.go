@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/oscp/certs-cli/cmd"
+import "github.com/oscp/openshift-certs-cli/cmd"
 
 func main() {
 	cmd.Execute()

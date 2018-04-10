@@ -28,10 +28,10 @@ var jsonFile string
 var expiryDays int
 var debug bool
 
-var log = logging.MustGetLogger("certs-cli")
+var log = logging.MustGetLogger("openshift-certs-cli")
 
 var rootCmd = &cobra.Command{
-	Use:   "certs-cli",
+	Use:   "openshift-certs-cli",
 	Short: "This cli parses 'cert-expiry-report.json' and outputs expired certs.",
 	Long: `OpenShift uses SSL certificates for encrypting communication between its components. It's crucial to monitor
 their expiry date and renew them as needed. The JSON file cert-expiry-report.json is generated via /usr/share/ansible/openshift-ansible/playbooks/certificate_expiry/easy-mode.yaml.`,
@@ -61,9 +61,9 @@ func initLogging() {
 	logging.SetBackend(logging.NewBackendFormatter(stdOutBackend, format))
 
 	if debug {
-		logging.SetLevel(logging.DEBUG, "certs-cli")
+		logging.SetLevel(logging.DEBUG, "openshift-certs-cli")
 	} else {
-		logging.SetLevel(logging.INFO, "certs-cli")
+		logging.SetLevel(logging.INFO, "openshift-certs-cli")
 	}
 
 }
